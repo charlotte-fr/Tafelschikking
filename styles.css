@@ -1,17 +1,37 @@
 :root {
-  --powder-blush: #f5e6e0;
-  --rose-quartz: #e8b4b8;
-  --champagne-gold: #c9a961;
-  --boardroom-black: #1a1a1a;
-  --crisp-white: #ffffff;
-  --taupe-smoke: #7b6f5c;
+  --ts-bg: #f5e6e0;
+  --ts-bg-alt: #efd9d2;
+  --ts-card: #ffffff;
+  --ts-surface-rose: #e8b4b8;
 
-  --bg: #f0eee9;
-  --panel: #fffaf7;
-  --line: #e4d6cc;
-  --line-strong: #cfb585;
-  --seat-empty: #f8f2ef;
-  --seat-hover: #f2dfe0;
+  --ts-ink: #1a1a1a;
+  --ts-ink-soft: #7b6f5c;
+  --ts-ink-mute: #a89c89;
+
+  --ts-gold: #c9a961;
+  --ts-rule: #1a1a1a;
+  --ts-rule-soft: rgba(201, 169, 97, 0.72);
+  --ts-rule-dotted: rgba(123, 111, 92, 0.4);
+
+  --ts-ok: #5c7a55;
+  --ts-warn: #a87b3f;
+  --ts-alert: #8c3a2e;
+  --ts-info: #4a5a6e;
+
+  --ts-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --ts-font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ts-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --ts-radius-1: 2px;
+  --ts-radius-2: 4px;
+  --ts-radius-pill: 999px;
+
+  --bg: var(--ts-bg);
+  --panel: var(--ts-card);
+  --line: rgba(26, 26, 26, 0.14);
+  --line-strong: var(--ts-gold);
+  --seat-empty: #fff9f6;
+  --seat-hover: #f7ece6;
 }
 
 *,
@@ -28,17 +48,18 @@ body {
 
 body {
   min-height: 100vh;
-  color: var(--boardroom-black);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ts-ink);
+  font-family: var(--ts-font-ui);
   background:
-    linear-gradient(180deg, #f3eee8 0%, #f0eee9 55%, #f6f1ed 100%),
+    linear-gradient(180deg, #f2dfd8 0%, var(--ts-bg) 30%, #f7ece6 100%),
     repeating-linear-gradient(
       90deg,
-      rgba(201, 169, 97, 0.11) 0px,
-      rgba(201, 169, 97, 0.11) 1px,
+      rgba(201, 169, 97, 0.08) 0px,
+      rgba(201, 169, 97, 0.08) 1px,
       transparent 1px,
-      transparent 32px
+      transparent 28px
     );
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -54,16 +75,24 @@ p {
   padding: 1.2rem;
 }
 
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 10% 5%, rgba(255, 255, 255, 0.18), transparent 32%);
+}
+
 .app-shell::after {
   content: "G";
   position: fixed;
-  right: -45px;
-  bottom: -170px;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: min(36vw, 450px);
-  line-height: 0.8;
+  right: -42px;
+  bottom: -160px;
+  font-family: var(--ts-font-display);
   font-style: italic;
-  color: rgba(232, 180, 184, 0.35);
+  font-size: min(35vw, 430px);
+  line-height: 0.8;
+  color: rgba(232, 180, 184, 0.34);
   pointer-events: none;
   z-index: 0;
 }
@@ -83,10 +112,19 @@ p {
   gap: 1rem;
   flex-wrap: wrap;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: linear-gradient(160deg, #fff9f6 0%, #f8ece7 100%);
+  border-radius: var(--ts-radius-2);
+  background: linear-gradient(165deg, #fff8f3 0%, #f7ebe6 72%, #f3e1da 100%);
   padding: 1rem;
-  box-shadow: 0 9px 26px rgba(26, 26, 26, 0.07);
+}
+
+.topbar::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.65rem;
+  height: 0.5px;
+  background: var(--ts-rule-soft);
 }
 
 .topbar > div:first-child {
@@ -94,16 +132,16 @@ p {
 }
 
 h1 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--ts-font-display);
   font-size: clamp(1.7rem, 3.2vw, 2.65rem);
   font-weight: 600;
   line-height: 1.03;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 
 .topbar p {
   margin-top: 0.45rem;
-  color: var(--taupe-smoke);
+  color: var(--ts-ink-soft);
   font-size: 1rem;
 }
 
@@ -116,23 +154,23 @@ h1 {
 
 button,
 .file-picker {
-  border: 1px solid #d7cbc2;
-  border-radius: 8px;
-  background: var(--crisp-white);
-  color: var(--boardroom-black);
-  font-family: "Inter", sans-serif;
+  border: 1px solid rgba(26, 26, 26, 0.22);
+  border-radius: var(--ts-radius-2);
+  background: var(--ts-card);
+  color: var(--ts-ink);
+  font-family: var(--ts-font-ui);
   font-size: 0.89rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
   padding: 0.58rem 0.9rem;
   cursor: pointer;
-  transition: box-shadow 0.16s ease, border-color 0.16s ease, transform 0.16s ease, background 0.16s ease;
+  transition: background 120ms cubic-bezier(.2, .7, .3, 1), border-color 120ms cubic-bezier(.2, .7, .3, 1), transform 120ms cubic-bezier(.2, .7, .3, 1), color 120ms cubic-bezier(.2, .7, .3, 1);
 }
 
 button:hover,
 .file-picker:hover {
-  border-color: #c5aa78;
-  box-shadow: 0 3px 10px rgba(26, 26, 26, 0.08);
+  border-color: var(--ts-ink);
+  background: rgba(26, 26, 26, 0.04);
 }
 
 button:active,
@@ -141,16 +179,17 @@ button:active,
 }
 
 button.secondary {
-  background: #f8f3f0;
+  background: transparent;
 }
 
 #shareLinkBtn {
-  border-color: #c6b095;
-  background: #f7f0ea;
+  border-color: var(--ts-gold);
+  background: rgba(201, 169, 97, 0.12);
 }
 
 #shareLinkBtn:hover {
-  border-color: #bb9f71;
+  border-color: var(--ts-ink);
+  color: var(--ts-ink);
 }
 
 #csvInput {
@@ -160,23 +199,23 @@ button.secondary {
 .status-line {
   margin: 0.85rem 0 1rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: linear-gradient(180deg, #fffdfa 0%, #f7f0eb 100%);
-  color: var(--taupe-smoke);
+  border-radius: var(--ts-radius-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.55));
+  color: var(--ts-ink-soft);
   font-size: 0.93rem;
   padding: 0.74rem 0.88rem;
 }
 
 .status-line code {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--ts-font-mono);
   font-size: 0.85em;
-  color: #5f4b2d;
+  color: #6f582f;
 }
 
 .status-line.alert {
-  border-color: #d9b79c;
-  background: #fdf1e8;
-  color: #8e5530;
+  border-color: rgba(140, 58, 46, 0.35);
+  background: rgba(140, 58, 46, 0.09);
+  color: var(--ts-alert);
 }
 
 .planner-layout {
@@ -189,9 +228,8 @@ button.secondary {
 .pool-panel,
 .table-card {
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: 0 4px 14px rgba(26, 26, 26, 0.05);
+  border-radius: var(--ts-radius-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.84));
 }
 
 .pool-panel {
@@ -212,33 +250,34 @@ button.secondary {
 }
 
 .panel-heading {
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--ts-rule-soft);
   padding-bottom: 0.5rem;
 }
 
 .panel-heading h2 {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--ts-font-display);
   font-weight: 600;
-  font-size: 1.7rem;
+  font-size: 1.68rem;
   line-height: 0.98;
+  letter-spacing: -0.01em;
 }
 
 .count-badge {
-  border: 1px solid #cfb891;
-  border-radius: 999px;
-  background: #f8ebe4;
+  border: 1px solid rgba(26, 26, 26, 0.22);
+  border-radius: var(--ts-radius-pill);
+  background: rgba(201, 169, 97, 0.16);
   color: #3f2f1d;
-  font-family: "Inter", sans-serif;
+  font-family: var(--ts-font-ui);
   font-size: 0.86rem;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0.24rem 0.65rem;
 }
 
 .unassigned-zone {
   min-height: 190px;
-  border: 1px dashed #c8b9ab;
-  border-radius: 8px;
-  background: linear-gradient(180deg, #fffdfb 0%, #f9f2ed 100%);
+  border: 1px dashed rgba(123, 111, 92, 0.5);
+  border-radius: var(--ts-radius-2);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(248, 235, 228, 0.66));
   padding: 0.52rem;
   display: flex;
   flex-wrap: wrap;
@@ -257,11 +296,11 @@ button.secondary {
 }
 
 .table-a {
-  border-top: 3px solid var(--champagne-gold);
+  border-top: 2px solid var(--ts-gold);
 }
 
 .table-b {
-  border-top: 3px solid #b88a91;
+  border-top: 2px solid rgba(74, 90, 110, 0.72);
 }
 
 .table-title-wrap {
@@ -276,30 +315,32 @@ button.secondary {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: var(--ts-font-display);
   font-size: 2rem;
   font-weight: 600;
   line-height: 0.98;
+  letter-spacing: -0.01em;
 }
 
 .table-rename-btn {
-  border: 1px solid #cdbda9;
-  background: #faf4ef;
-  border-radius: 8px;
-  color: #5f4f3f;
-  font-size: 0.73rem;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  border: 1px solid rgba(26, 26, 26, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--ts-radius-2);
+  color: var(--ts-ink-soft);
+  font-family: var(--ts-font-mono);
+  font-size: 0.67rem;
   font-weight: 500;
-  letter-spacing: 0;
-  padding: 0.22rem 0.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.24rem 0.5rem;
 }
 
 .table-heading > span {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-family: var(--ts-font-mono);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--taupe-smoke);
+  color: var(--ts-ink-soft);
   white-space: nowrap;
 }
 
@@ -312,34 +353,35 @@ button.secondary {
 .seat {
   min-height: 69px;
   padding: 0.38rem;
-  border: 1px solid #dacfc5;
-  border-radius: 8px;
+  border: 1px solid rgba(26, 26, 26, 0.16);
+  border-radius: var(--ts-radius-2);
   background: var(--seat-empty);
   display: grid;
   gap: 0.3rem;
   align-content: start;
-  transition: background 0.16s ease, border-color 0.16s ease;
+  transition: background 120ms cubic-bezier(.2, .7, .3, 1), border-color 120ms cubic-bezier(.2, .7, .3, 1);
 }
 
 .seat.over,
 .unassigned-zone.over {
-  border-color: #be8f8f;
+  border-color: rgba(140, 58, 46, 0.46);
   background: var(--seat-hover);
 }
 
 .seat-label {
-  color: var(--taupe-smoke);
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.72rem;
+  color: var(--ts-ink-soft);
+  font-family: var(--ts-font-mono);
+  font-size: 0.71rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .guest-chip {
   width: 100%;
-  border: 1px solid #d8ccc3;
-  border-radius: 8px;
-  background: var(--crisp-white);
+  border: 1px solid rgba(26, 26, 26, 0.18);
+  border-radius: var(--ts-radius-2);
+  background: var(--ts-card);
   padding: 0.36rem 0.45rem;
   display: grid;
   gap: 0.24rem;
@@ -352,7 +394,7 @@ button.secondary {
 }
 
 .guest-name {
-  font-family: "Inter", sans-serif;
+  font-family: var(--ts-font-ui);
   font-size: 0.83rem;
   font-weight: 600;
   line-height: 1.16;
@@ -365,11 +407,11 @@ button.secondary {
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  border: 1px solid #cfb7a8;
-  border-radius: 999px;
-  background: #f8ece3;
-  color: #7d5247;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+  border: 1px solid rgba(74, 90, 110, 0.35);
+  border-radius: var(--ts-radius-pill);
+  background: rgba(74, 90, 110, 0.11);
+  color: var(--ts-info);
+  font-family: var(--ts-font-mono);
   font-size: 0.64rem;
   font-weight: 500;
   letter-spacing: 0.01em;
@@ -377,7 +419,7 @@ button.secondary {
 }
 
 .guest-chip.has-diet {
-  border-left: 3px solid #b87f75;
+  border-left: 3px solid rgba(74, 90, 110, 0.75);
 }
 
 .guest-chip.drag-origin {
@@ -389,7 +431,7 @@ button.secondary {
   z-index: 1000;
   pointer-events: none;
   width: min(220px, 62vw);
-  box-shadow: 0 12px 28px rgba(26, 26, 26, 0.22);
+  box-shadow: 0 8px 32px rgba(26, 26, 26, 0.16);
   transform: translate(-50%, -50%);
 }
 
