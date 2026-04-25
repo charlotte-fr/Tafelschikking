@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wedding Seating Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>Wedding Seating Planner</h1>
+          <p>Two long tables, 80 seats total</p>
+        </div>
+        <div class="toolbar">
+          <label class="file-picker" for="csvInput">Import CSV</label>
+          <input id="csvInput" type="file" accept=".csv,text/csv" />
+          <button id="downloadTemplateBtn" type="button">Template CSV</button>
+          <button id="saveBtn" type="button">Save Layout</button>
+          <button id="shareLinkBtn" type="button">Copy Share Link</button>
+          <button id="exportBtn" type="button">Export Seating</button>
+          <button id="resetBtn" type="button" class="secondary">Reset</button>
+        </div>
+      </header>
+
+      <p id="statusLine" class="status-line">
+        Import a CSV with columns like <code>name</code> and <code>dietary requirements</code>.
+      </p>
+
+      <main class="planner-layout">
+        <section class="pool-panel">
+          <div class="panel-heading">
+            <h2>Unassigned Guests</h2>
+            <span id="guestCountBadge" class="count-badge">0</span>
+          </div>
+          <div id="unassignedZone" class="unassigned-zone" data-drop-zone="pool"></div>
+        </section>
+
+        <section class="tables-panel">
+          <div class="table-card table-a">
+            <div class="table-heading">
+              <div class="table-title-wrap">
+                <h2 id="tableAName" class="table-name">Table A</h2>
+                <button
+                  id="renameTableABtn"
+                  class="table-rename-btn"
+                  type="button"
+                  aria-label="Rename table A"
+                  title="Rename table"
+                >
+                  Edit
+                </button>
+              </div>
+              <span>40 seats</span>
+            </div>
+            <div id="tableA" class="seat-grid"></div>
+          </div>
+
+          <div class="table-card table-b">
+            <div class="table-heading">
+              <div class="table-title-wrap">
+                <h2 id="tableBName" class="table-name">Table B</h2>
+                <button
+                  id="renameTableBBtn"
+                  class="table-rename-btn"
+                  type="button"
+                  aria-label="Rename table B"
+                  title="Rename table"
+                >
+                  Edit
+                </button>
+              </div>
+              <span>40 seats</span>
+            </div>
+            <div id="tableB" class="seat-grid"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
